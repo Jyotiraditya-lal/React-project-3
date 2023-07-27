@@ -4,6 +4,7 @@ import OrderContext from "./order-context";
 const OrderProvider=(props)=>{
 
     const [CandyState,setCandyState]=useState([])
+    //
     
 
     const AddCandyHandler=(candy)=>{
@@ -13,10 +14,16 @@ const OrderProvider=(props)=>{
     const AddLHandler=(id)=>{
         for(let i=0;i<CandyState.length;i++){
             if(CandyState[i].id===id){
-                CandyState[i].amount++
-                CandyState[i].L++;
-                setCandyState([...CandyState])
-                break;
+                if(CandyState[i].NumberL>0) {
+                    CandyState[i].amount++
+                    CandyState[i].L++;
+                    CandyState[i].NumberL--;
+                    setCandyState([...CandyState])
+                    break;
+                }
+                else{
+                    alert(`No More ${CandyState[i].name} available in L-size`)
+                }
             }
             
         }
@@ -26,10 +33,17 @@ const OrderProvider=(props)=>{
     const AddMHandler=(id)=>{
         for(let i=0;i<CandyState.length;i++){
             if(CandyState[i].id===id){
-                CandyState[i].amount+
-                CandyState[i].M++;
-                setCandyState([...CandyState])
+                if(CandyState[i].NumberM>0){
+                    CandyState[i].amount+
+                    CandyState[i].M++;
+                    CandyState[i].NumberM--;
+                    setCandyState([...CandyState])
                 break;
+                }
+                else{
+                    alert(`No More ${CandyState[i].name} available in L M-size`)
+                }
+                
             }
         }
     }
@@ -37,10 +51,29 @@ const OrderProvider=(props)=>{
     const AddSHandler=(id)=>{
         for(let i=0;i<CandyState.length;i++){
             if(CandyState[i].id===id){
-                CandyState[i].amount++;
-                CandyState[i].S++;
-                setCandyState([...CandyState])
+                if(CandyState[i].NumberS>0){
+                    CandyState[i].amount+
+                    CandyState[i].S++;
+                    CandyState[i].NumberS--;
+                    setCandyState([...CandyState])
                 break;
+                }
+                else{
+                    alert(`No More ${CandyState[i].name} available in S-size`)
+                }
+            }
+        }
+    }
+
+    const RemoveItemsHandler=(id)=>{
+        fetch(`https://react-http-333ab-default-rtdb.asia-southeast1.firebasedatabase.app/Products/${id}.json`,{
+            method: 'DELETE'
+        })
+
+        for(let i=0;i<CandyState.length;i++){
+            if(CandyState[i].id===id){
+                CandyState.splice(i,1)
+                setCandyState([...CandyState])
             }
         }
     }
@@ -51,7 +84,9 @@ const OrderProvider=(props)=>{
         AddCandy: AddCandyHandler,
         AddbyOne: AddLHandler,
         AddbyTwo: AddMHandler,
-        AddbyThree: AddSHandler
+        AddbyThree: AddSHandler,
+        RemoveItems: RemoveItemsHandler,
+        
     }
 
 
