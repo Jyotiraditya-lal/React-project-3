@@ -27,6 +27,9 @@ const CandyList=()=>{
                                onAddL={AddLHandler.bind(null,Candy.id)} 
                                onAddM={AddMHandler.bind(null,Candy.id)} 
                                onAddS={AddSHandler.bind(null,Candy.id)} 
+                               NumberL={Candy.NumberL}
+                               NumberM={Candy.NumberM}
+                               NumberS={Candy.NumberS}
                             />
                            
                     )} 
