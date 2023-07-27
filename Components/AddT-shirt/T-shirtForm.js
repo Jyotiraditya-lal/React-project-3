@@ -40,7 +40,7 @@ const CandyForm=()=>{
             method: 'POST',
             body: JSON.stringify(order)
         })
-        CandyCtx.AddCandy({...order, L: 0, M: 0, S: 0, amount: 0})
+        CandyCtx.AddCandy({...order, L: 0, M: 0, S: 0, amount: 0, NumberL: 1, NumberS: 100, NumberM: 100})
         setEnteredName('')
         setEnteredPrice('')
         setEnteredDescription('')
